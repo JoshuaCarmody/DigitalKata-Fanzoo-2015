@@ -8,53 +8,55 @@ namespace DigitalKata
 {
     public class DigitDisplayPatternFactory
     {
-        private static readonly DigitDisplayPattern Blank = 
+        public static readonly DigitDisplayPattern Blank = 
             DigitDisplayPattern.None;
-        private static readonly DigitDisplayPattern Zero =
+        public static readonly DigitDisplayPattern Minus =
+            DigitDisplayPattern.MiddleBar;
+        public static readonly DigitDisplayPattern Zero =
             DigitDisplayPattern.UpperBar |
             DigitDisplayPattern.UpperRightBar |
             DigitDisplayPattern.LowerRightBar |
             DigitDisplayPattern.LowerBar |
             DigitDisplayPattern.LowerLeftBar |
             DigitDisplayPattern.UpperLeftBar;
-        private static readonly DigitDisplayPattern One = 
+        public static readonly DigitDisplayPattern One = 
             DigitDisplayPattern.UpperLeftBar | 
             DigitDisplayPattern.LowerLeftBar;
-        private static readonly DigitDisplayPattern Two =
+        public static readonly DigitDisplayPattern Two =
             DigitDisplayPattern.UpperBar |
             DigitDisplayPattern.UpperRightBar |
             DigitDisplayPattern.MiddleBar |
             DigitDisplayPattern.LowerLeftBar |
             DigitDisplayPattern.LowerBar;
-        private static readonly DigitDisplayPattern Three =
+        public static readonly DigitDisplayPattern Three =
             DigitDisplayPattern.UpperBar |
             DigitDisplayPattern.UpperRightBar |
             DigitDisplayPattern.MiddleBar |
             DigitDisplayPattern.LowerRightBar |
             DigitDisplayPattern.LowerBar;
-        private static readonly DigitDisplayPattern Four =
+        public static readonly DigitDisplayPattern Four =
             DigitDisplayPattern.UpperLeftBar |
             DigitDisplayPattern.MiddleBar |
             DigitDisplayPattern.UpperRightBar |
             DigitDisplayPattern.LowerRightBar;
-        private static readonly DigitDisplayPattern Five = 
+        public static readonly DigitDisplayPattern Five = 
             DigitDisplayPattern.UpperBar | 
             DigitDisplayPattern.UpperLeftBar | 
             DigitDisplayPattern.MiddleBar | 
             DigitDisplayPattern.LowerRightBar | 
             DigitDisplayPattern.LowerBar;
-        private static readonly DigitDisplayPattern Six =
+        public static readonly DigitDisplayPattern Six =
             DigitDisplayPattern.UpperBar |
             DigitDisplayPattern.UpperLeftBar |
             DigitDisplayPattern.LowerLeftBar |
             DigitDisplayPattern.LowerBar |
             DigitDisplayPattern.LowerRightBar |
             DigitDisplayPattern.MiddleBar;
-        private static readonly DigitDisplayPattern Seven =
+        public static readonly DigitDisplayPattern Seven =
             DigitDisplayPattern.UpperBar |
             DigitDisplayPattern.UpperRightBar |
             DigitDisplayPattern.LowerRightBar;
-        private static readonly DigitDisplayPattern Eight =
+        public static readonly DigitDisplayPattern Eight =
             DigitDisplayPattern.UpperBar |
             DigitDisplayPattern.UpperRightBar |
             DigitDisplayPattern.LowerRightBar |
@@ -62,7 +64,7 @@ namespace DigitalKata
             DigitDisplayPattern.LowerLeftBar |
             DigitDisplayPattern.UpperLeftBar |
             DigitDisplayPattern.MiddleBar;
-        private static readonly DigitDisplayPattern Nine =
+        public static readonly DigitDisplayPattern Nine =
             DigitDisplayPattern.MiddleBar |
             DigitDisplayPattern.UpperLeftBar |
             DigitDisplayPattern.UpperBar |
@@ -70,7 +72,7 @@ namespace DigitalKata
             DigitDisplayPattern.LowerRightBar;
 
 
-        public static DigitDisplayPattern FromSingleDigitInt(int digit)
+        public static DigitDisplayPattern FromSingleDigit(int digit)
         {
             switch (digit)
             {
@@ -97,6 +99,34 @@ namespace DigitalKata
                 default:
                     throw new ArgumentOutOfRangeException("digit", "Expected: 0-9. Actual: " + digit);
             }
+        }
+
+        public static IEnumerable<DigitDisplayPattern> CreateEnumerable(int sourceNumber)
+        {
+            LinkedList<DigitDisplayPattern> returnList = new LinkedList<DigitDisplayPattern>();
+
+            if (sourceNumber == 0)
+            {
+                returnList.AddFirst(Zero);
+                return returnList;
+            }
+
+            bool isNegative = sourceNumber < 0;
+            int remainingDigits = Math.Abs(sourceNumber);
+
+            while (remainingDigits > 0)
+            {
+                int currentDigit = remainingDigits % 10;
+                remainingDigits /= 10;
+                returnList.AddFirst(FromSingleDigit(currentDigit));
+            }
+
+            if (isNegative)
+            {
+                returnList.AddFirst(Minus);
+            }
+
+            return returnList;
         }
     }
 }
