@@ -20,8 +20,8 @@ namespace DigitalKata
             DigitDisplayPattern.LowerLeftBar |
             DigitDisplayPattern.UpperLeftBar;
         public static readonly DigitDisplayPattern One = 
-            DigitDisplayPattern.UpperLeftBar | 
-            DigitDisplayPattern.LowerLeftBar;
+            DigitDisplayPattern.UpperRightBar | 
+            DigitDisplayPattern.LowerRightBar;
         public static readonly DigitDisplayPattern Two =
             DigitDisplayPattern.UpperBar |
             DigitDisplayPattern.UpperRightBar |

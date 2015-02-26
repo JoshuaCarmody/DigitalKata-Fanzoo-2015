@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DigitDisplayAsciiRenderer.cs" />
     <Compile Include="DigitDisplayPattern.cs" />
     <Compile Include="DigitDisplayPatternFactory.cs" />
     <Compile Include="Program.cs" />
