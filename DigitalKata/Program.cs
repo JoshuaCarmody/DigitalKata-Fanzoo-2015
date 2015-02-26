@@ -10,8 +10,8 @@ namespace DigitalKata
     {
         static void Main(string[] args)
         {
-            int[] testNumbers = new int[] { 0, 112, 2015, 32767 };
-            var renderer = new DigitDisplayAsciiRenderer(2,2);
+            int[] testNumbers = new int[] { 0, 112, 2015, 32767, -99 };
+            var renderer = new DigitDisplayAsciiRenderer(3,3);
 
             foreach (int i in testNumbers)
             {
